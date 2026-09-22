@@ -1,5 +1,6 @@
 import {getPosts} from "@/app/lib/posts";
 import Link from "next/link";
+import LoadingIndicator from "@/app/ui/loading-indicator";
 
 export default async function blogIndexPage(){
     const posts = await getPosts();
@@ -8,7 +9,10 @@ export default async function blogIndexPage(){
         <ul>
             {posts.map((p)=>(
                 <li key={p.slug}>
-                    <Link href={`/blog/${p.slug}`}>{p.title}</Link>
+                    <Link href={`/blog/${p.slug}`}>
+                        <LoadingIndicator/>
+                        {p.title}
+                    </Link>
                 </li>
             ))}
         </ul>

@@ -1,8 +1,12 @@
-import { getPost } from '@/app/lib/posts'
+import {getPost, getPosts} from '@/app/lib/posts'
+
+export async function generateStaticParams() {
+    const posts = await getPosts()
+    return posts.map((post) => ({ slug: post.slug }))
+}
 
 type Props = {
     params: Promise<{ slug: string }>
-    searchParams: Promise<{filter?: string}>
 }
 
 export default async function BlogPostPage({ params}: Props) {
@@ -14,8 +18,10 @@ export default async function BlogPostPage({ params}: Props) {
     }
     return (
         <div>
-            <h1>{post.title}</h1>
+            <h1 >{post.title}</h1>
             <p>{post.content}</p>
+            <h3>{post.category}</h3>
+            <h4>{post.publishedAt}</h4>
 
         </div>
     )
