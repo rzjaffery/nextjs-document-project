@@ -1,6 +1,7 @@
 import {getPosts} from "@/app/lib/posts";
 import Link from "next/link";
 import LoadingIndicator from "@/app/ui/loading-indicator";
+import LiveComments from "@/app/ui/live-comments";
 
 export default async function blogIndexPage(){
     const posts = await getPosts();

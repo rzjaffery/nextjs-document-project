@@ -1,6 +1,7 @@
 import Image from "next/image";
 import blogIndexPage from "@/app/blog/page";
 import {getSecretData} from "@/app/lib/data";
+import LiveComments from "@/app/ui/live-comments";
 
 export default async function Home() {
 
