@@ -1,10 +1,16 @@
 import Image from "next/image";
+import blogIndexPage from "@/app/blog/page";
+import {getSecretData} from "@/app/lib/data";
 
-export default function Home() {
-  return (
-      <main>
-        <div className='text-center'>Hello World</div>
-        <div className='text-center text-blue-700 font-bold'>My name is Rayyan</div>
-      </main>
-  );
+export default async function Home() {
+
+    const data = await getSecretData()
+    // return <pre>{JSON.stringify(data, null, 2)}</pre>
+    return (
+          <main>
+            <div className='text-center'>Blog Page</div>
+          </main>
+
+
+      );
 }

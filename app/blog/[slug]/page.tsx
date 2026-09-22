@@ -1,4 +1,5 @@
 import {getPost, getPosts} from '@/app/lib/posts'
+import LikeButton from "@/app/ui/like-button";
 
 export async function generateStaticParams() {
     const posts = await getPosts()
@@ -22,7 +23,7 @@ export default async function BlogPostPage({ params}: Props) {
             <p>{post.content}</p>
             <h3>{post.category}</h3>
             <h4>{post.publishedAt}</h4>
-
+            <LikeButton initialLikes={post.likes}/>
         </div>
     )
 }
