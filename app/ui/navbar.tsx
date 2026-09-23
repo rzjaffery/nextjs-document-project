@@ -11,7 +11,7 @@ export default function Navbar() {
                     📰 Developer Blog
                 </Link>
                 <div className="flex items-center gap-4 text-xs font-semibold text-gray-300">
-                    <Link href="/" className="hover:text-white transition-colors">
+                    <Link href="/blog" className="hover:text-white transition-colors">
                         All Articles
                     </Link>
                     <span className="text-gray-600">•</span>
