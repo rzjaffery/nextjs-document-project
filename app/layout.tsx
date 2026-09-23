@@ -3,6 +3,8 @@ import { Noto_Sans_Mono, Noto_Sans_Ol_Chiki} from "next/font/google";
 import "./globals.css";
 import React from "react";
 import ThemeProvider from "@/app/theme-provider";
+import Navbar from "@/app/ui/navbar";
+import Footer from "@/app/ui/footer";
 
 const notoSansOlChiki = Noto_Sans_Ol_Chiki({
   variable: "--font-sans",
@@ -26,9 +28,11 @@ export default function RootLayout({ children }:{children: React.ReactNode} ) {
       lang="en"
       className={`${notoSansOlChiki.variable} ${notoSansMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+    <body className="bg-[#1a1a1a] min-h-screen flex flex-col">
+      <Navbar/>
+        <main className="flex-1">{children}</main>
+      <Footer />
+    </body>
     </html>
   );
 }
