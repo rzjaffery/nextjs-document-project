@@ -1,3 +1,5 @@
+import LoadingIndicator from "@/app/ui/loading-indicator";
+
 export default function loading(){
-    return <p className='text-center'>Loading</p>
+    return <LoadingIndicator/>
 }
