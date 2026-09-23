@@ -10,11 +10,11 @@ export default function BlogLayout({
 }) {
     return (
         <div className="min-h-screen bg-[#1a1a1a] text-white flex flex-col">
-            <Navbar/>
+            {/*<Navbar/>*/}
             <div className="flex-1">
                 {children}
             </div>
-            <Footer/>
+            {/*<Footer/>*/}
         </div>
     );
 }
