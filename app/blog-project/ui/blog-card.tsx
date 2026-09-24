@@ -10,7 +10,7 @@ export default function BlogCard({
     badgeStyle?: string
 }) {
     return (
-        <Link href={`/blog/${post.slug}`} className="block group">
+        <Link href={`/blog-project/blog/${post.slug}`} className="block group">
             <div className="relative drop-shadow-xl w-48 h-64 overflow-hidden rounded-xl bg-[#3d3c3d] transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-black/60">
                 <div className="absolute w-56 h-48 bg-white blur-[50px] -left-1/2 -top-1/2 pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute flex flex-col justify-between items-center text-center p-4 text-white z-[1] opacity-95 rounded-xl inset-0.5 bg-[#323132] group-hover:bg-[#2b2a2b] transition-colors duration-200">

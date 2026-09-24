@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import LikeButton from "@/app/ui/like-button";
+import LikeButton from "@/app/blog-project/ui/like-button";
 
 type Post = {
     id: number;
@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <div className="relative drop-shadow-xl max-w-md w-full overflow-hidden rounded-xl bg-[#3d3c3d] p-0.5">
                     <div className="relative z-[1] bg-[#323132] opacity-90 rounded-[10px] p-6 text-center">
                         <h1 className="text-lg font-bold text-red-400">Post Not Found</h1>
-                        <Link href="/" className="inline-block mt-4 text-xs font-semibold text-gray-300 hover:text-white uppercase tracking-wider">
+                        <Link href="/public" className="inline-block mt-4 text-xs font-semibold text-gray-300 hover:text-white uppercase tracking-wider">
                             ← Return to Home
                         </Link>
                     </div>
@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Navigation Header */}
             <div className="w-full max-w-2xl mb-4">
                 <Link
-                    href="/"
+                    href="/public"
                     className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
                 >
                     ← Back to Blog Posts

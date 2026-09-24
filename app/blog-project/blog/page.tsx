@@ -22,9 +22,9 @@ function blogList(posts: Post[]) {
 
                 return (
                     <li key={postId}>
-                        <Link href={`/blog/${postId}`} className="block group">
+                        <Link href={`/blog-project/blog/${postId}`} className="block group">
                             <div className="relative drop-shadow-xl w-48 h-64 overflow-hidden rounded-xl bg-[#3d3c3d] transition-transform duration-200 group-hover:scale-105">
-                                <div className="absolute flex flex-col items-center justify-center text-center p-4 text-white z-[1] opacity-90 rounded-xl inset-0.5 bg-[#323132]">
+                                <div className="absolute flex flex-col items-center justify-center text-center p-4 text-white z-1 opacity-90 rounded-xl inset-0.5 bg-[#323132]">
                                     <span className="font-bold text-base line-clamp-3">{p.title}</span>
                                     <span className="text-xs text-gray-400 mt-2 uppercase tracking-wider">{category}</span>
                                     {date && (

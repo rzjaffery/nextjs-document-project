@@ -28,11 +28,11 @@ export default function Footer() {
 
                     {/* Navigation Links */}
                     <div className="flex items-center justify-center md:justify-start gap-4 text-xs font-semibold text-gray-400 pt-1">
-                        <Link href="/" className="hover:text-white transition-colors">
+                        <Link href="/public" className="hover:text-white transition-colors">
                             Home
                         </Link>
                         <span>•</span>
-                        <Link href="/blog" className="hover:text-white transition-colors">
+                        <Link href="/blog-project/blog" className="hover:text-white transition-colors">
                             Blog
                         </Link>
                         <span>•</span>

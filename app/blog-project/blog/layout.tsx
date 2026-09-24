@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
-import Navbar from "@/app/ui/navbar";
-import Footer from "@/app/ui/footer";
+import Navbar from "@/app/blog-project/ui/navbar";
+import Footer from "@/app/blog-project/ui/footer";
 
 export default function BlogLayout({
                                        children,

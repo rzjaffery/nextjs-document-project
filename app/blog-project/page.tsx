@@ -129,26 +129,12 @@ export default function Home() {
             <div className="max-w-4xl mx-auto space-y-16">
 
                 {/* Banner loads immediately without waiting */}
-                {/*<Banner />*/}
+                <Banner />
 
-                {/*/!* Loading indicator shows while BlogContent fetches data *!/*/}
-                {/*<Suspense fallback={<LoadingIndicator />}>*/}
-                {/*    <BlogContent />*/}
-                {/*</Suspense>*/}
-                <div className="flex justify-center pt-2">
-                <Link href="/blog-project">
-                    <button className="cursor-pointer bg-[#3d3c3d] hover:bg-[#4a4949] px-15 py-3 rounded-xl border border-[#4a4949] shadow-[0px_4px_32px_0_rgba(74,150,225,.70)] text-white font-medium group">
-                        <div className="relative overflow-hidden">
-                            <p>
-                                Blog Button
-                            </p>
-                            {/*<p className="absolute top-7 group-hover:top-0 duration-[1.125s] ease-[cubic-bezier(0.2,1,0.2,1)]">*/}
-                            {/*    Button*/}
-                            {/*</p>*/}
-                        </div>
-                    </button>
-                </Link>
-            </div>
+                {/* Loading indicator shows while BlogContent fetches data */}
+                <Suspense fallback={<LoadingIndicator />}>
+                    <BlogContent />
+                </Suspense>
 
             </div>
         </main>

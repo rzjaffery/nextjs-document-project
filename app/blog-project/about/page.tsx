@@ -93,7 +93,7 @@ export default function AboutPage() {
                         </div>
 
                         <Link
-                            href="/blog"
+                            href="/blog-project/blog"
                             className="px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all duration-200 shrink-0 shadow-lg shadow-blue-600/20"
                         >
                             Read Blog Posts →
