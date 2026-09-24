@@ -6,10 +6,7 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 's3.amazonaws.com',
-                port: '',
-                pathname: '/my-bucket/**',
-                search: '',
+                hostname: 'cdn.jsdelivr.net',
             },
         ],
     },
