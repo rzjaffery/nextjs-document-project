@@ -14,6 +14,14 @@ export interface ComicVineVolume {
     api_detail_url: string;
 }
 
+export interface ComicVineCharacterCredit {
+    id: number;
+    name: string;
+    site_detail_url?: string;
+    api_detail_url?: string;
+    image?: ComicVineImage;
+}
+
 export interface ComicVineIssue {
     id: number;
     name: string | null;
@@ -23,6 +31,7 @@ export interface ComicVineIssue {
     image: ComicVineImage;
     volume: ComicVineVolume;
     api_detail_url: string;
+    character_credits?: ComicVineCharacterCredit[]; // Character list from API
 }
 
 export interface ComicVineResponse<T> {

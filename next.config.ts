@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
     images: {
         remotePatterns: [
             {
+                protocol: 'http',
+                hostname: '*.comicvine.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.comicvine.com',
+            },
+            {
                 protocol: 'https',
                 hostname: 'comicvine.gamespot.com',
             },
