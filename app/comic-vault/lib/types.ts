@@ -1,34 +1,36 @@
-export interface Powerstats {
-    intelligence: number;
-    strength: number;
-    speed: number;
-    durability: number;
-    power: number;
-    combat: number;
+export interface ComicVineImage {
+    icon_url: string;
+    medium_url: string;
+    screen_url: string;
+    super_url: string;
+    thumb_url: string;
+    tiny_url: string;
+    original_url: string;
 }
 
-export interface Biography {
-    fullName: string;
-    alterEgos: string;
-    aliases: string[];
-    placeOfBirth: string;
-    firstAppearance: string;
-    publisher: string;
-    alignment: string;
-}
-
-export interface Images {
-    xs: string;
-    sm: string;
-    md: string;
-    lg: string;
-}
-
-export interface ComicCharacter {
+export interface ComicVineVolume {
     id: number;
     name: string;
-    slug: string;
-    powerstats: Powerstats;
-    biography: Biography;
-    images: Images;
+    api_detail_url: string;
+}
+
+export interface ComicVineIssue {
+    id: number;
+    name: string | null;
+    issue_number: string;
+    cover_date: string | null;
+    description: string | null;
+    image: ComicVineImage;
+    volume: ComicVineVolume;
+    api_detail_url: string;
+}
+
+export interface ComicVineResponse<T> {
+    error: string;
+    limit: number;
+    offset: number;
+    number_of_page_results: number;
+    number_of_total_results: number;
+    status_code: number;
+    results: T;
 }
