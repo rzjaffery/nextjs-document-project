@@ -9,7 +9,7 @@ export function ComicCard({comic}: ComicCardProps) {
     const title = comic.name || `${comic.volume.name} #${comic.issue_number}`
     return (
         <Link
-            href={`/comics/${comic.id}`}
+            href={`/comic-vault/comics/${comic.id}`}
             className="group flex flex-col overflow-hidden rounded-lg border border-gray-800 bg-gray-900 transition-transform duration-200 hover:-translate-y-1 hover:border-red-600"
         >
             <div className="relative aspect-2/3 w-full overflow-hidden bg-gray-950">
