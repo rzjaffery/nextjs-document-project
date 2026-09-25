@@ -1,8 +1,11 @@
-import {getComics, getVaultStats} from "@/app/comic-vault/lib/comic-api";
+import { getComics, getVaultStats } from './lib/comic-api';
+import { ComicGrid } from './components/comic-grid';
+import { Pagination } from './components/pagination';
+import { Navbar } from './components/navbar';
 import {StatsBarRoot} from "@/app/comic-vault/components/stats-bar-root";
-import {ComicGrid} from "@/app/comic-vault/components/comic-grid";
-import {Pagination} from "@/app/comic-vault/components/pagination";
-import {Navbar} from "@/app/comic-vault/components/navbar";
+
+// Instruct Next.js to render this page dynamically per request
+export const dynamic = 'force-dynamic';
 
 interface PageProps {
     searchParams: Promise<{ page?: string; limit?: string; query?: string }>;
@@ -14,7 +17,6 @@ export default async function CatalogPage({ searchParams }: PageProps) {
     const limit = Number(resolvedParams?.limit) || 20;
     const query = resolvedParams?.query || '';
 
-    // Fetch comics and database stats concurrently on the server
     const [{ comics, total }, stats] = await Promise.all([
         getComics(page, limit, query),
         getVaultStats(),
@@ -22,8 +24,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            {/* Navbar Header at top of main screen */}
-
+            <Navbar />
 
             <main className="px-4 pb-12 sm:px-8">
                 <header className="mb-6">
@@ -35,17 +36,14 @@ export default async function CatalogPage({ searchParams }: PageProps) {
                     </p>
                 </header>
 
-                {/* Catalog Metrics */}
                 <StatsBarRoot
                     volumesCount={stats.volumesCount}
                     episodesCount={stats.episodesCount}
                     moviesCount={stats.moviesCount}
                 />
 
-                {/* Comic Catalog Grid */}
                 <ComicGrid comics={comics} />
 
-                {/* Pagination Controls */}
                 <Pagination
                     currentPage={page}
                     limit={limit}

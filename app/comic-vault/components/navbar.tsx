@@ -1,14 +1,14 @@
-'use client'
+// app/comic-vault/components/navbar.tsx
+'use client';
 
-import {useRouter, useSearchParams} from "next/navigation";
-import {useState} from "react";
-import Link from "next/link";
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
-export function Navbar(){
-    const router = useRouter()
-    const searchParams = useSearchParams()
-
-    const [query, setQuery] = useState(searchParams.get("query") || '');
+function SearchForm() {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const [query, setQuery] = useState(searchParams.get('query') || '');
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,10 +20,32 @@ export function Navbar(){
     };
 
     return (
-        <header className="sticky top-0 z-50 border-b border-gray-800 bg-black/90 backdrop-blur-md">
+        <form onSubmit={handleSearch} className="relative flex-1 sm:max-w-md">
+            <div className="relative flex items-center">
+                <input
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search comics, Spider-Man, Batman..."
+                    className="w-full rounded-lg border border-gray-800 bg-gray-900 py-2 pl-4 pr-10 text-sm text-white placeholder-gray-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
+                />
+                <button
+                    type="submit"
+                    className="absolute right-1 rounded-md bg-red-600 px-3 py-1 text-xs font-bold uppercase text-white transition hover:bg-red-700"
+                >
+                    Search
+                </button>
+            </div>
+        </form>
+    );
+}
+
+export function Navbar() {
+    return (
+        <header className="sticky top-0 z-50 mb-8 border-b border-gray-800 bg-black/90 backdrop-blur-md">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
 
-                {/* Logo & Main Nav */}
+                {/* Logo & Category Links */}
                 <div className="flex items-center justify-between gap-6 sm:justify-start">
                     <Link href="/comic-vault" className="flex items-center gap-2 group">
             <span className="rounded bg-red-600 px-2 py-1 text-xs font-black uppercase text-white transition group-hover:bg-red-700">
@@ -34,7 +56,6 @@ export function Navbar(){
             </span>
                     </Link>
 
-                    {/* Quick Category Links based on Comic Vine endpoints */}
                     <nav className="flex items-center gap-4 text-xs font-semibold uppercase tracking-wider sm:text-sm">
                         <Link
                             href="/comic-vault"
@@ -51,24 +72,12 @@ export function Navbar(){
                     </nav>
                 </div>
 
-                {/* Search Bar */}
-                <form onSubmit={handleSearch} className="relative flex-1 sm:max-w-md">
-                    <div className="relative flex items-center">
-                        <input
-                            type="text"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Search comics, Spider-Man, Batman..."
-                            className="w-full rounded-lg border border-gray-800 bg-gray-900 py-2 pl-4 pr-10 text-sm text-white placeholder-gray-500 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600"
-                        />
-                        <button
-                            type="submit"
-                            className="absolute right-1 rounded-md bg-red-600 px-3 py-1 text-xs font-bold uppercase text-white transition hover:bg-red-700"
-                        >
-                            Search
-                        </button>
-                    </div>
-                </form>
+                {/* Search Bar wrapped in Suspense */}
+                <Suspense fallback={
+                               <div className="h-9 w-full sm:max-w-md rounded-lg bg-gray-900 animate-pulse" />
+                          }>
+                    <SearchForm />
+                </Suspense>
 
             </div>
         </header>
