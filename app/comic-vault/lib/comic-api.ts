@@ -11,24 +11,30 @@ function getApiKey(): string{
     return key;
 }
 
-export async function getComics(limit: number = 20): Promise<ComicVineIssue[]> {
+export async function getComics(page:number = 1, limit: number = 20) {
     const apiKey = getApiKey();
-    const url = `${BASE_URL}/issues/?api_key=${apiKey}&format=json&limit=${limit}&sort=cover_date:desc`;
+    const offset = (page - 1) * limit;
 
-    const res = await fetch(url,{
+    const url = `${BASE_URL}/issues/?api_key=${apiKey}&format=json&limit=${limit}&offset=${offset}&sort=cover_date:desc`;
+    const res = await fetch(url, {
         headers: {
             'User-Agent': 'NextJSComicVaultApp/1.0',
         },
-        next:{revalidate:3600},
+        next: { revalidate: 3600 },
     });
-    if (!res.ok){
-        throw new Error('Failed to fetch comics');
+
+    if (!res.ok) {
+        throw new Error(`Failed to fetch issues: ${res.statusText}`);
     }
-    const data :ComicVineResponse<ComicVineIssue[]> = await res.json()
-    return data.results
+    const data: ComicVineResponse<ComicVineIssue[]> = await res.json();
+
+    return {
+        comics: data.results,
+        total: data.number_of_total_results, // Total count for page calculations
+    };
 }
 
-export async function getComicsById(id:string): Promise<ComicVineIssue | null> {
+export async function getComicById(id:string): Promise<ComicVineIssue | null> {
     const apiKey = getApiKey();
     const formattedId = id.startsWith('4000-') ? id : `4000-${id}`;
     const url = `${BASE_URL}/issue/${formattedId}/?api_key=${apiKey}&format=json`;
