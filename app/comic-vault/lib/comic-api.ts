@@ -3,6 +3,12 @@ import {fetch} from "next/dist/compiled/@edge-runtime/primitives";
 
 const BASE_URL = 'https://comicvine.gamespot.com/api';
 
+export interface VaultStats {
+    volumesCount: number;
+    episodesCount: number;
+    moviesCount: number;
+}
+
 function getApiKey(): string{
     const key = process.env.COMIC_VINE_API_KEY;
     if (!key){
@@ -51,4 +57,41 @@ export async function getComicById(id:string): Promise<ComicVineIssue | null> {
     }
     const data: ComicVineResponse<ComicVineIssue> = await res.json();
     return data.results || null;
+}
+export async function getVaultStats(): Promise<VaultStats> {
+    const apiKey = getApiKey();
+    const headers = { 'User-Agent': 'NextJSComicVaultApp/1.0' };
+
+    try {
+        // Fetch count headers for volumes, episodes, and movies in parallel
+        const [volumesRes, episodesRes, moviesRes] = await Promise.all([
+            fetch(`${BASE_URL}/volumes/?api_key=${apiKey}&format=json&limit=1`, {
+                headers,
+                next: { revalidate: 86400 }, // Cache stats for 24 hours
+            }),
+            fetch(`${BASE_URL}/episodes/?api_key=${apiKey}&format=json&limit=1`, {
+                headers,
+                next: { revalidate: 86400 },
+            }),
+            fetch(`${BASE_URL}/movies/?api_key=${apiKey}&format=json&limit=1`, {
+                headers,
+                next: { revalidate: 86400 },
+            }),
+        ]);
+
+        const [volumesData, episodesData, moviesData] = await Promise.all([
+            volumesRes.ok ? volumesRes.json() : Promise.resolve({ number_of_total_results: 0 }),
+            episodesRes.ok ? episodesRes.json() : Promise.resolve({ number_of_total_results: 0 }),
+            moviesRes.ok ? moviesRes.json() : Promise.resolve({ number_of_total_results: 0 }),
+        ]);
+
+        return {
+            volumesCount: volumesData.number_of_total_results || 0,
+            episodesCount: episodesData.number_of_total_results || 0,
+            moviesCount: moviesData.number_of_total_results || 0,
+        };
+    } catch (error) {
+        console.error('Failed to fetch vault stats:', error);
+        return { volumesCount: 0, episodesCount: 0, moviesCount: 0 };
+    }
 }

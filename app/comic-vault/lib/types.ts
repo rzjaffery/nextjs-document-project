@@ -22,6 +22,12 @@ export interface ComicVineCharacterCredit {
     image?: ComicVineImage;
 }
 
+export interface ComicVineCreditItem {
+    id: number;
+    name: string;
+    role?: string;
+}
+
 export interface ComicVineIssue {
     id: number;
     name: string | null;
@@ -31,7 +37,10 @@ export interface ComicVineIssue {
     image: ComicVineImage;
     volume: ComicVineVolume;
     api_detail_url: string;
-    character_credits?: ComicVineCharacterCredit[]; // Character list from API
+    character_credits?: ComicVineCharacterCredit[];
+    person_credits?: ComicVineCreditItem[];
+    team_credits?: ComicVineCreditItem[];
+    location_credits?: ComicVineCreditItem[];
 }
 
 export interface ComicVineResponse<T> {

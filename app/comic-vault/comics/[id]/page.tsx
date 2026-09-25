@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import {CharacterCarousel} from "@/app/comic-vault/components/character-carousel";
-import {CharacterGrid} from "@/app/comic-vault/components/character-grid";
+import { CharacterGrid } from '@/app/comic-vault/components/character-grid';
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -69,9 +68,10 @@ export default async function ComicDetailPage({ params }: PageProps) {
                             }}
                         />
                     </div>
-                    <CharacterGrid characters={comic.character_credits || []}/>
                 </div>
             </div>
+
+            <CharacterGrid characters={comic.character_credits || []} />
         </main>
     );
 }
