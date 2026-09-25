@@ -1,11 +1,18 @@
 import Link from "next/link";
 
-export default function Navbar() {
+export default function NavbarRoot() {
     return (
         <header className="border-b border-[#4a4949] bg-[#323132]/80 backdrop-blur-md sticky top-0 z-40">
             <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
                 <Link
-                    href="/public"
+                    href="/"
+                    className=" inline-flex gap-1 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
+                >
+                    ←
+                </Link>
+
+                <Link
+                    href="/blog-project"
                     className="text-sm font-extrabold uppercase tracking-widest text-blue-400 hover:text-blue-300 transition-colors"
                 >
                     📰 Developer Blog
@@ -15,7 +22,7 @@ export default function Navbar() {
                         All Articles
                     </Link>
                     <span className="text-gray-600">•</span>
-                    <Link href="/public" className="hover:text-white transition-colors">
+                    <Link href="/blog-project" className="hover:text-white transition-colors">
                         Home
                     </Link>
                 </div>

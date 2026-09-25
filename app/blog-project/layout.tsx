@@ -27,11 +27,11 @@ export default function RootLayout({ children }:{children: React.ReactNode} ) {
             lang="en"
             className={`${notoSansOlChiki.variable} ${notoSansMono.variable} h-full antialiased`}
         >
-        <body className="bg-[#1a1a1a] min-h-screen flex flex-col">
-        <Navbar/>
-        <main className="flex-1">{children}</main>
-        <Footer />
-        </body>
+            <body className="bg-[#1a1a1a] min-h-screen flex flex-col">
+                <Navbar/>
+                    <main className="flex-1">{children}</main>
+                <Footer />
+            </body>
         </html>
     );
 }

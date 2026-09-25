@@ -58,7 +58,7 @@ export default async function BlogPostPage({ params }: Props) {
             {/* Navigation Header */}
             <div className="w-full max-w-2xl mb-4">
                 <Link
-                    href="/public"
+                    href="/blog-project/blog"
                     className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-gray-400 hover:text-white transition-colors"
                 >
                     ← Back to Blog Posts
