@@ -39,8 +39,8 @@ export interface ComicVineIssue {
     api_detail_url: string;
     character_credits?: ComicVineCharacterCredit[];
     person_credits?: ComicVineCreditItem[];
-    team_credits?: ComicVineCreditItem[];
-    location_credits?: ComicVineCreditItem[];
+    story_arc_credits?: ComicVineCreditItem[];
+    concept_credits?: ComicVineCreditItem[];
 }
 
 export interface ComicVineResponse<T> {

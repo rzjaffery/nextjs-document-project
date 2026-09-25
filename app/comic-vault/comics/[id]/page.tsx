@@ -1,9 +1,12 @@
+// app/comic-vault/comics/[id]/page.tsx
+
 import { getComicById } from '@/app/comic-vault/lib/comic-api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { CharacterGrid } from '@/app/comic-vault/components/character-grid';
+import { StatsBar } from '@/app/comic-vault/components/stats-bar';
 
 interface PageProps {
     params: Promise<{ id: string }>;
@@ -11,11 +14,11 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { id } = await params;
-    const comic = await getComicById(id);
+    const data = await getComicById(id);
 
-    if (!comic) return { title: 'Comic Not Found' };
+    if (!data) return { title: 'Comic Not Found' };
 
-    const title = comic.name || `${comic.volume.name} #${comic.issue_number}`;
+    const title = data.comic.name || `${data.comic.volume.name} #${data.comic.issue_number}`;
     return {
         title: `${title} | Comic Vault`,
         description: `Details for ${title}`,
@@ -24,13 +27,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function ComicDetailPage({ params }: PageProps) {
     const { id } = await params;
-    const comic = await getComicById(id);
+    const data = await getComicById(id);
 
-    if (!comic) {
+    if (!data) {
         notFound();
     }
 
+    const { comic, totalSeriesIssues } = data;
     const title = comic.name || `${comic.volume.name} #${comic.issue_number}`;
+    const storyArcsCount = comic.story_arc_credits?.length || 0;
 
     return (
         <main className="min-h-screen bg-black p-4 text-white sm:p-8">
@@ -41,6 +46,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
                 ← Back to Catalog
             </Link>
 
+            {/* Top Details Section */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                 <div className="relative aspect-2/3 w-full overflow-hidden rounded-lg bg-gray-900">
                     <Image
@@ -71,7 +77,17 @@ export default async function ComicDetailPage({ params }: PageProps) {
                 </div>
             </div>
 
+            {/* Featured Characters Grid */}
             <CharacterGrid characters={comic.character_credits || []} />
+
+            {/* Issue-Specific Stats Bar */}
+            <div className="mt-8">
+                <StatsBar
+                    issueNumber={comic.issue_number}
+                    totalSeriesIssues={totalSeriesIssues}
+                    storyArcsCount={storyArcsCount}
+                />
+            </div>
         </main>
     );
 }

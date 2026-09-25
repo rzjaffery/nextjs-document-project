@@ -40,23 +40,54 @@ export async function getComics(page:number = 1, limit: number = 20) {
     };
 }
 
-export async function getComicById(id:string): Promise<ComicVineIssue | null> {
+export async function getComicById(id: string) {
     const apiKey = getApiKey();
     const formattedId = id.startsWith('4000-') ? id : `4000-${id}`;
-    const url = `${BASE_URL}/issue/${formattedId}/?api_key=${apiKey}&format=json`;
+    const headers = { 'User-Agent': 'NextJSComicVaultApp/1.0' };
 
-    const res = await fetch(url,{
-        headers: {
-            'User-Agent': 'NextJSComicVaultApp/1.0',
-        },
-        next:{revalidate:3600},
-    });
-    if (!res.ok){
-        if(res.status === 404) return null;
+    // Fetch issue details
+    const issueRes = await fetch(
+        `${BASE_URL}/issue/${formattedId}/?api_key=${apiKey}&format=json`,
+        {
+            headers,
+            next: { revalidate: 86400 },
+        }
+    );
+
+    if (!issueRes.ok) {
+        if (issueRes.status === 404) return null;
         throw new Error(`Failed to fetch issue details for ID ${id}`);
     }
-    const data: ComicVineResponse<ComicVineIssue> = await res.json();
-    return data.results || null;
+
+    const issueData: ComicVineResponse<ComicVineIssue> = await issueRes.json();
+    const comic = issueData.results;
+
+    if (!comic) return null;
+
+    // Fetch parent Volume to get total issues in this series
+    let totalSeriesIssues = 0;
+    if (comic.volume?.id) {
+        try {
+            const volumeRes = await fetch(
+                `${BASE_URL}/volume/4050-${comic.volume.id}/?api_key=${apiKey}&format=json&field_list=count_of_issues`,
+                {
+                    headers,
+                    next: { revalidate: 86400 },
+                }
+            );
+            if (volumeRes.ok) {
+                const volumeData = await volumeRes.json();
+                totalSeriesIssues = volumeData.results?.count_of_issues || 0;
+            }
+        } catch (error) {
+            console.error('Failed to fetch parent volume count', error);
+        }
+    }
+
+    return {
+        comic,
+        totalSeriesIssues,
+    };
 }
 export async function getVaultStats(): Promise<VaultStats> {
     const apiKey = getApiKey();
