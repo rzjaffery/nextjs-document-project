@@ -6,7 +6,11 @@ const nextConfig: NextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'cdn.jsdelivr.net',
+                hostname: 'comicvine.gamespot.com',
+            },
+            {
+                protocol: 'https',
+                hostname: '*.cbsistatic.com',
             },
         ],
     },
