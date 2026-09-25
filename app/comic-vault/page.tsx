@@ -1,7 +1,6 @@
 import { getComics, getVaultStats } from './lib/comic-api';
 import { ComicGrid } from './components/comic-grid';
 import { Pagination } from './components/pagination';
-import { Navbar } from './components/navbar';
 import {StatsBarRoot} from "@/app/comic-vault/components/stats-bar-root";
 
 // Instruct Next.js to render this page dynamically per request
@@ -24,7 +23,6 @@ export default async function CatalogPage({ searchParams }: PageProps) {
 
     return (
         <div className="min-h-screen bg-black text-white">
-            <Navbar />
 
             <main className="px-4 pb-12 sm:px-8">
                 <header className="mb-6">

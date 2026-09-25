@@ -45,8 +45,19 @@ export function Navbar() {
         <header className="sticky top-0 z-50 mb-8 border-b border-gray-800 bg-black/90 backdrop-blur-md">
             <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
 
-                {/* Logo & Category Links */}
-                <div className="flex items-center justify-between gap-6 sm:justify-start">
+                {/* Left Section: Back to Root Link & Brand Logo */}
+                <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+
+                    {/* Back Navigation Button to Hub */}
+                    <Link
+                        href="/"
+                        className="flex items-center gap-1.5 rounded-lg border border-gray-800 bg-gray-900 px-3 py-1.5 text-xs font-semibold text-gray-400 transition hover:border-red-600 hover:bg-gray-800 hover:text-white"
+                    >
+                        <span>←</span>
+                        <span>Home</span>
+                    </Link>
+
+                    {/* Brand Logo */}
                     <Link href="/comic-vault" className="flex items-center gap-2 group">
             <span className="rounded bg-red-600 px-2 py-1 text-xs font-black uppercase text-white transition group-hover:bg-red-700">
               Vault
@@ -56,6 +67,7 @@ export function Navbar() {
             </span>
                     </Link>
 
+                    {/* Quick Links */}
                     <nav className="flex items-center gap-4 text-xs font-semibold uppercase tracking-wider sm:text-sm">
                         <Link
                             href="/comic-vault"
