@@ -17,26 +17,44 @@ function getApiKey(): string{
     return key;
 }
 
-export async function getComics(page:number = 1, limit: number = 20) {
+export async function getComics(page: number = 1, limit: number = 20, query?: string) {
     const apiKey = getApiKey();
     const offset = (page - 1) * limit;
+    const headers = { 'User-Agent': 'NextJSComicVaultApp/1.0' };
 
+    // If search query exists, use Comic Vine Search endpoint
+    if (query && query.trim() !== '') {
+        const searchUrl = `${BASE_URL}/search/?api_key=${apiKey}&format=json&resources=issue&query=${encodeURIComponent(query)}&page=${page}&limit=${limit}`;
+
+        const res = await fetch(searchUrl, {
+            headers,
+            next: { revalidate: 3600 },
+        });
+
+        if (!res.ok) throw new Error(`Search failed: ${res.statusText}`);
+
+        const data: ComicVineResponse<ComicVineIssue[]> = await res.json();
+        return {
+            comics: data.results || [],
+            total: data.number_of_total_results || 0,
+        };
+    }
+
+    // Default listing endpoint
     const url = `${BASE_URL}/issues/?api_key=${apiKey}&format=json&limit=${limit}&offset=${offset}&sort=cover_date:desc`;
+
     const res = await fetch(url, {
-        headers: {
-            'User-Agent': 'NextJSComicVaultApp/1.0',
-        },
+        headers,
         next: { revalidate: 3600 },
     });
 
-    if (!res.ok) {
-        throw new Error(`Failed to fetch issues: ${res.statusText}`);
-    }
+    if (!res.ok) throw new Error(`Failed to fetch issues: ${res.statusText}`);
+
     const data: ComicVineResponse<ComicVineIssue[]> = await res.json();
 
     return {
-        comics: data.results,
-        total: data.number_of_total_results, // Total count for page calculations
+        comics: data.results || [],
+        total: data.number_of_total_results || 0,
     };
 }
 
