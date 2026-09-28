@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: '*.cbsistatic.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'cdn.jsdelivr.net',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
 };

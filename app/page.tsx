@@ -63,6 +63,26 @@ export default function Home() {
                         </div>
                     </Link>
 
+                    {/* Superhero Database Portal */}
+                    <Link href="/superhero-database/app" className="group w-full sm:w-1/2">
+                        <div className="relative overflow-hidden rounded-2xl border border-gray-800 bg-gray-900/80 p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:border-orange-600 hover:bg-gray-900 hover:shadow-[0_0_30px_rgba(220,38,38,0.35)]">
+                            <div className="flex items-center justify-between">
+                                <span className="rounded bg-red-600/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-orange-500 border border-orange-600/20">
+                                    SuperHero
+                                </span>
+                                <span className="text-gray-500 transition-transform duration-300 group-hover:translate-x-1 group-hover:text-orange-500">
+                                    →
+                                </span>
+                            </div>
+                            <h2 className="mt-5 text-xl font-bold text-white group-hover:text-orange-600">
+                                SuperHero Database
+                            </h2>
+                            <p className="mt-2 text-xs text-gray-400 leading-relaxed">
+                                Search all the incredible Superheroes
+                            </p>
+                        </div>
+                    </Link>
+
                 </div>
             </div>
         </main>
