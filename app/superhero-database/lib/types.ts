@@ -47,3 +47,8 @@ export type FilterControlsProps = {
     setPublisher: (val: string) => void;
     publishers: string[];
 };
+
+export type HeroModalProps = {
+    hero: Superhero | null;
+    onClose: () => void;
+};
