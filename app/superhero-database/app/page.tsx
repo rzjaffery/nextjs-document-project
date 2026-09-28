@@ -16,14 +16,18 @@ export default function Home(){
     const [alignment, setAlignment] = useState("all")
     const [publisher, setPublisher] = useState("all")
     const [selectedHero, setSelectedHero] = useState<Superhero | null>(null)
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
+        setMounted(true);
         fetchSuperheroes().then((data)=>{
             setHeroes(data);
             setLoading(false);
         })
             .catch(()=>setLoading(false))
     }, []);
+
+    if(!mounted) return null;
 
     const publishers = Array.from(
         new Set(heroes.map((h) => h.biography.publisher).filter(Boolean))
