@@ -52,3 +52,13 @@ export type HeroModalProps = {
     hero: Superhero | null;
     onClose: () => void;
 };
+
+export type PaginationProps = {
+    currentPage: number;
+    totalPages: number;
+    pageSize: number;
+    totalItems: number;
+    onPageChange: (page: number) => void;
+    onPageSizeChange: (size: number) => void;
+    pageSizeOptions?: number[];
+};
