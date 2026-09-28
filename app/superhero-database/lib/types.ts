@@ -32,3 +32,8 @@ export type Superhero = {
         lg: string;
     };
 };
+
+export type HeroCardProps = {
+    hero: Superhero;
+    onSelect: (hero: Superhero) => void;
+};
