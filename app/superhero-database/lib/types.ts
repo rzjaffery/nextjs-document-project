@@ -1,4 +1,4 @@
-export type Powerstats = {
+export type PowerStats = {
     intelligence: number;
     strength: number;
     speed: number;
@@ -11,7 +11,7 @@ export type Superhero = {
     id: number;
     name: string;
     slug: string;
-    powerstats: Powerstats;
+    powerstats: PowerStats;
     appearance: {
         gender: string;
         race: string | null;

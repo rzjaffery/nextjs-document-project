@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import {Powerstats, Superhero} from "@/app/superhero-database/lib/types";
+import {PowerStats, Superhero} from "@/app/superhero-database/lib/types";
 import BattleSimulatorModal from "@/app/superhero-database/ui/battle-simulator-modal-props";
 
 type CompareModalProps = {
@@ -11,7 +11,7 @@ type CompareModalProps = {
     onClose: () => void;
 };
 
-const STAT_KEYS: (keyof Powerstats)[] = [
+const STAT_KEYS: (keyof PowerStats)[] = [
     "intelligence",
     "strength",
     "speed",
@@ -35,7 +35,7 @@ export default function CompareModal({ hero1, hero2, onClose }: CompareModalProp
         <>
             <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4">
                 <div className="relative drop-shadow-2xl w-full max-w-3xl overflow-hidden rounded-xl bg-[#3d3c3d] p-0.5 max-h-[92vh] flex flex-col">
-                    <div className="relative z-[1] bg-[#323132] opacity-95 rounded-[10px] p-6 space-y-5 text-white overflow-y-auto">
+                    <div className="relative z-1 bg-[#323132] opacity-95 rounded-[10px] p-6 space-y-5 text-white overflow-y-auto">
 
                         {/* Header & Close Button */}
                         <div className="flex justify-between items-center border-b border-[#4a4949] pb-4">
@@ -98,7 +98,7 @@ export default function CompareModal({ hero1, hero2, onClose }: CompareModalProp
                         <div className="flex justify-center pt-1">
                             <button
                                 onClick={() => setShowBattleSim(true)}
-                                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black text-xs shadow-lg transition-all cursor-pointer flex items-center gap-2"
+                                className="px-5 py-2.5 rounded-xl bg-linear-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-black text-xs shadow-lg transition-all cursor-pointer flex items-center gap-2"
                             >
                                 <span>🔥 Launch Automated Battle Simulator</span>
                             </button>
