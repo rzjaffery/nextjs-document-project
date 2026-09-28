@@ -4,7 +4,7 @@ import Image from "next/image";
 import {HeroCardProps} from "@/app/superhero-database/lib/types";
 
 
-export default function HeroCard({ hero, onSelect }: HeroCardProps) {
+export default function HeroCard({hero, onSelect, isCompared, onToggleCompare}: HeroCardProps) {
     const alignmentColor =
         hero.biography.alignment === "good" ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" :
             hero.biography.alignment === "bad" ? "bg-rose-500/20 text-rose-300 border-rose-500/40" :

@@ -13,7 +13,7 @@ export default function HeroModal({hero, onClose}:HeroModalProps){
             <div className="relative drop-shadow-2xl w-full max-w-lg overflow-hidden rounded-xl bg-[#3d3c3d] p-0.5">
                 <div className="absolute w-72 h-64 bg-white blur-[60px] -left-1/3 -top-1/3 pointer-events-none" />
 
-                <div className="relative z-[1] bg-[#323132] opacity-95 rounded-[10px] p-6 space-y-5 text-white max-h-[90vh] overflow-y-auto">
+                <div className="relative z-1 bg-[#323132] opacity-95 rounded-[10px] p-6 space-y-5 text-white max-h-[90vh] overflow-y-auto">
 
                     {/* Close Button */}
                     <button

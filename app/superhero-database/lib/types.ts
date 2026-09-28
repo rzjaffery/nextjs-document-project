@@ -34,8 +34,10 @@ export type Superhero = {
 };
 
 export type HeroCardProps = {
-    hero: Superhero;
-    onSelect: (hero: Superhero) => void;
+    hero: Superhero,
+    onSelect: (hero: Superhero) => void,
+    isCompared?: boolean,
+    onToggleCompare?: (hero: Superhero) => void
 };
 
 export type FilterControlsProps = {
