@@ -37,3 +37,13 @@ export type HeroCardProps = {
     hero: Superhero;
     onSelect: (hero: Superhero) => void;
 };
+
+export type FilterControlsProps = {
+    search: string;
+    setSearch: (val: string) => void;
+    alignment: string;
+    setAlignment: (val: string) => void;
+    publisher: string;
+    setPublisher: (val: string) => void;
+    publishers: string[];
+};
