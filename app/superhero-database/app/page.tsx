@@ -14,6 +14,7 @@ export default function Home() {
     const [search, setSearch] = useState("");
     const [alignment, setAlignment] = useState("all");
     const [publisher, setPublisher] = useState("all");
+    const [sortBy, setSortBy] = useState("name-asc");
     const [selectedHero, setSelectedHero] = useState<Superhero | null>(null);
     const [mounted, setMounted] = useState(false);
 
@@ -31,10 +32,10 @@ export default function Home() {
             .catch(() => setLoading(false));
     }, []);
 
-    // Reset to page 1 whenever search/filters change
+    // Reset page to 1 on filter or sort change
     useEffect(() => {
         setCurrentPage(1);
-    }, [search, alignment, publisher]);
+    }, [search, alignment, publisher, sortBy]);
 
     if (!mounted) return null;
 
@@ -43,7 +44,7 @@ export default function Home() {
         new Set(heroes.map((h) => h.biography.publisher).filter(Boolean))
     ).slice(0, 15) as string[];
 
-    // Filtering Logic
+    // 1. Filtering Logic
     const filteredHeroes = heroes.filter((hero) => {
         const matchesSearch = hero.name.toLowerCase().includes(search.toLowerCase());
         const matchesAlignment = alignment === "all" || hero.biography.alignment === alignment;
@@ -51,9 +52,24 @@ export default function Home() {
         return matchesSearch && matchesAlignment && matchesPublisher;
     });
 
-    // Pagination Calculations
-    const totalPages = Math.ceil(filteredHeroes.length / pageSize);
-    const paginatedHeroes = filteredHeroes.slice(
+    // 2. Sorting Logic
+    const sortedHeroes = [...filteredHeroes].sort((a, b) => {
+        if (sortBy === "name-asc") return a.name.localeCompare(b.name);
+        if (sortBy === "name-desc") return b.name.localeCompare(a.name);
+        if (sortBy === "intelligence") return (b.powerstats.intelligence || 0) - (a.powerstats.intelligence || 0);
+        if (sortBy === "strength") return (b.powerstats.strength || 0) - (a.powerstats.strength || 0);
+        if (sortBy === "power") return (b.powerstats.power || 0) - (a.powerstats.power || 0);
+        if (sortBy === "totalPower") {
+            const totalA = Object.values(a.powerstats).reduce((acc, val) => acc + (val || 0), 0);
+            const totalB = Object.values(b.powerstats).reduce((acc, val) => acc + (val || 0), 0);
+            return totalB - totalA;
+        }
+        return 0;
+    });
+
+    // 3. Pagination Calculations on sorted data
+    const totalPages = Math.ceil(sortedHeroes.length / pageSize);
+    const paginatedHeroes = sortedHeroes.slice(
         (currentPage - 1) * pageSize,
         currentPage * pageSize
     );
@@ -77,7 +93,7 @@ export default function Home() {
                     </p>
                 </div>
 
-                {/* Filter Bar */}
+                {/* Filter & Sort Bar */}
                 <FilterControls
                     search={search}
                     setSearch={setSearch}
@@ -86,6 +102,8 @@ export default function Home() {
                     publisher={publisher}
                     setPublisher={setPublisher}
                     publishers={publishers}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
                 />
 
                 {/* Superhero Cards Grid */}
@@ -114,7 +132,7 @@ export default function Home() {
                             currentPage={currentPage}
                             totalPages={totalPages}
                             pageSize={pageSize}
-                            totalItems={filteredHeroes.length}
+                            totalItems={sortedHeroes.length}
                             onPageChange={setCurrentPage}
                             onPageSizeChange={handlePageSizeChange}
                         />

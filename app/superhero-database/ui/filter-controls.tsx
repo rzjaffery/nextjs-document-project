@@ -9,7 +9,9 @@ export default function FilterControls({
     setAlignment,
     publisher,
     setPublisher,
-    publishers,}: FilterControlsProps) {
+    publishers,
+    sortBy,
+    setSortBy,}: FilterControlsProps) {
     return (
         <div className="relative drop-shadow-xl overflow-hidden rounded-xl bg-[#3d3c3d] p-0.5 max-w-4xl mx-auto w-full mb-8">
             <div className="relative z-[1] bg-[#323132] opacity-95 rounded-[10px] p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
@@ -24,6 +26,22 @@ export default function FilterControls({
                 />
 
                 <div className="flex flex-wrap gap-3 w-full md:w-auto">
+
+                    {/*Sort Dropdown*/}
+                    <select
+                        value={sortBy}
+                        onChange={(e) => setSortBy(e.target.value)}
+                        className="px-3 py-2 rounded-lg bg-[#1a1a1a] border border-[#4a4949] text-xs text-white focus:outline-none focus:border-blue-500 cursor-pointer"
+                    >
+                        <option value="name-asc">Sort: Name (A–Z)</option>
+                        <option value="name-desc">Sort: Name (Z–A)</option>
+                        <option value="intelligence">Sort: Highest Intelligence</option>
+                        <option value="strength">Sort: Highest Strength</option>
+                        <option value="power">Sort: Highest Power</option>
+                        <option value="totalPower">Sort: Highest Total Stats</option>
+
+                    </select>
+
                     {/* Alignment Filter */}
                     <select
                         value={alignment}

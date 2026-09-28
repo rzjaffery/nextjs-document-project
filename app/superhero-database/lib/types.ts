@@ -46,6 +46,8 @@ export type FilterControlsProps = {
     publisher: string;
     setPublisher: (val: string) => void;
     publishers: string[];
+    sortBy: string;
+    setSortBy: (val: string) => void;
 };
 
 export type HeroModalProps = {
